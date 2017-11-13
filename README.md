@@ -21,4 +21,4 @@ which creates an environment, activates it, istalls dependecies and gets you out
 conda env create -f environment.yml
 pip install -e .
 ```
-There is also a dockerfile which provided the required development environment. Also, no need for GPU, this is kindergarden.
+There is also a dockerfile which provided the required development environment - once in the container, cd into the mapped directory and `pip install -e .`. Also, no need for GPU, this is kindergarden.

@@ -1,5 +1,4 @@
 from luibeal import deck
-from fs.osfs import OSFS
 import torch
 import os, shutil
 
@@ -42,12 +41,8 @@ def test_serialization():
     deck00 = deck.Deck(nseq, lseq)
 
     tmp_path = os.path.join('.', 'tmp_testing')
-    if os.path.isdir(tmp_path):
-        shutil.rmtree(tmp_path)
-    os.mkdir(tmp_path)
-    tmp_fs = OSFS(tmp_path)
-    deck.save(deck00, tmp_fs)
-    deck00_loaded = deck.load(tmp_fs)
+    deck.save_as(deck00, tmp_path)
+    deck00_loaded = deck.load_from(tmp_path)
     shutil.rmtree(tmp_path)
 
     assert deck00_loaded.nseq == nseq
