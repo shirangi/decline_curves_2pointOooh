@@ -1,5 +1,7 @@
 # Decline Curves 2.Oooh
 
+A PyTorch application for next-generation decline curve modelling.
+
 - Conventional decline curve models cannot account for changing conditions
 - Recurrent neural networks (RNN) process temporal data
 - Temporal data may be used to represent changes in conditions during a well’s lifetime
@@ -17,4 +19,4 @@ which creates an environment, activates it, istalls dependecies and gets you out
 ```
 conda env create -f environment.yml
 ```
-No need for Cuda support, this is kindergarden.
+There is also a dockerfile which provided the required development environment. Also, no need for Cuda support, this is kindergarden.
