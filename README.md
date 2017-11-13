@@ -13,10 +13,12 @@ PyTorch has chosen a somewhat tight alignment with Anaconda, so this project fal
 conda create -n dcenv
 source activate dcenv
 conda env update -f environment.yml
+pip install -e .
 source deactivate dcenv
 ```
 which creates an environment, activates it, istalls dependecies and gets you out of the environment. Alternatively, you can create the environment in one go and step into it later, all set up.
 ```
 conda env create -f environment.yml
+pip install -e .
 ```
 There is also a dockerfile which provided the required development environment. Also, no need for Cuda support, this is kindergarden.
