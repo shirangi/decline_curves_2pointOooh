@@ -1,0 +1,12 @@
+name: luibeal
+dependencies:
+  - python=3.6
+  - numpy
+  - pyyaml 
+  - scipy 
+  - matplotlib 
+  - pytest
+  - mkl
+  - fs
+  - pytorch 
+  - torchvision
