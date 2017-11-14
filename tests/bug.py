@@ -18,9 +18,12 @@ def bug0_serialization():
 def bug1_serialization():
     a = torch.zeros(2, 2)
     with tempfile.TemporaryFile(mode='w+b') as tmp:            
-            i = 41
-            pickle.dump(i, tmp)
-            torch.save(a, tmp)
-            tmp.seek(0)
-            j = pickle.load(tmp)
-            b = torch.load(tmp)
+        i = 41
+        pickle.dump(i, tmp)
+        torch.save(a, tmp)
+        tmp.seek(0)
+        j = pickle.load(tmp)
+        b = torch.load(tmp)
+
+if __name__ == '__main__':
+    bug1_serialization()

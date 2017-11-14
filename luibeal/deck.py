@@ -19,39 +19,40 @@ class Deck():
     Attributes:
         nseq: Number of production curves.
         lseq: Number of values per production curve.
-        nmetaseq: Number of addditional data streams per production curve, ie stages of sorts,
+        meta_sequence_names: Names of addditional data streams per production curve, ie stages of sorts,
             like perforation stage, additional wells stage etc..., also referred to as meta-sequences.
         **data** (nseq*(nmetaseq+1), lseq): Tensor containing production sequences plus meta-sequences
             so that production sequence[i] = data[i*(nmetaseq+1)], and the metasequence j corresponding to 
             sequence i is at data[i*(nmetaseq+1) + j]
     """
 
-    def __init__(self, nseq, lseq, nmetaseq=0):
+    def __init__(self, nseq, lseq, meta_sequence_names=[]):
         """
         Args:
             nseq: Number of production curves, ie number of sequences.
             lseq: Data values per production curve, length of a single sequence.
-            nmetaseq: Number of addditional data streams per production curve, ie stages of sorts,
+            meta_sequence_names: Names of addditional data streams per production curve, ie stages of sorts,
                 like perforation stage, additional wells stage etc...also referred to as meta sequences.
         """
         self.nseq = nseq
         self.lseq = lseq
-        self.nmetaseq = nmetaseq
+        self.meta_sequence_names = meta_sequence_names
+        nmetaseq = len(self.meta_sequence_names)
         self.data = torch.zeros(nseq * (nmetaseq + 1), lseq)
 
     def idx_sequence(self, i):
-        return i * (self.nmetaseq + 1)
+        nmetaseq = len(self.meta_sequence_names)
+        return i * (nmetaseq + 1)
 
-    def idx_meta_sequence(self, i, j):
-        if self.nmetaseq > 0:
-            return self.idx_sequence(i) + 1 + j
-        return None
+    def idx_meta_sequence(self, i, name):
+        j = self.meta_sequence_names.index(name)
+        return self.idx_sequence(i) + 1 + j
 
     def set_sequence(self, i, seq):
         self.data[self.idx_sequence(i)] = seq
 
-    def set_meta_sequence(self, i, j, metaseq):
-        self.data[self.idx_meta_sequence(i, j)] = metaseq
+    def set_meta_sequence(self, i, name, metaseq):
+        self.data[self.idx_meta_sequence(i, name)] = metaseq
 
 
 # TODO move to util module
@@ -60,7 +61,7 @@ class Deck():
 def save(deck, fs_osfs):
     version = 0
     meta_data = {'version': version, 'nseq': deck.nseq, 
-                 'lseq': deck.lseq, 'nmetaseq': deck.nmetaseq}
+                 'lseq': deck.lseq, 'meta_sequence_names': deck.meta_sequence_names}
     fs_osfs.create(META_FNAME, wipe=True)
     with fs_osfs.open(META_FNAME, 'wt') as f:
         f.write(json.dumps(meta_data))
@@ -75,7 +76,7 @@ def load(fs_osfs):
     deck = Deck(0, 0)
     deck.nseq = meta_data['nseq']
     deck.lseq = meta_data['lseq']
-    deck.nmetaseq = meta_data['nmetaseq']
+    deck.meta_sequence_names = meta_data['meta_sequence_names']
     with fs_osfs.open(DATA_FNAME, 'rb') as f:
         deck.data = torch.load(f)     
     return deck

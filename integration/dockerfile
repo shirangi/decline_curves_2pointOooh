@@ -3,16 +3,20 @@ FROM debian:jessie-slim
 RUN apt-get update && apt-get install -y \
          bash \
          curl \
-         bzip2
+         bzip2 \
+         git \
+         make \
+         build-essential
 
 ENV PYTHON_VERSION=3.6
-RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-4.3.30-Linux-x86_64.sh  && \
-     chmod +x ~/miniconda.sh && \
-     ~/miniconda.sh -b -p /opt/conda && \     
-     rm ~/miniconda.sh && \
-     /opt/conda/bin/conda create -y --name pytorch-py$PYTHON_VERSION python=$PYTHON_VERSION pytest numpy pyyaml scipy matplotlib mkl&& \
+RUN curl -o ~/installconda.sh -O  https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh  && \
+     chmod +x ~/installconda.sh && \
+     ~/installconda.sh -b -p /opt/conda && \     
+     rm ~/installconda.sh && \
+     /opt/conda/bin/conda create -y --name pytorch-py$PYTHON_VERSION python=$PYTHON_VERSION pytest numpy pyyaml scipy matplotlib mkl setuptools cmake cffi&& \
      /opt/conda/bin/conda clean -ya 
 
 ENV PATH /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin:$PATH
-RUN ["bin/bash", "-c", "source activate pytorch-py$PYTHON_VERSION; conda install pytorch torchvision -c soumith; conda install -c conda-forge fs"]
+#RUN ["bin/bash", "-c", "source activate pytorch-py$PYTHON_VERSION; conda install pytorch torchvision -c soumith; conda install -c conda-forge fs"]
+RUN ["bin/bash", "-c", "source activate pytorch-py$PYTHON_VERSION; conda install -c conda-forge fs"]
 ENTRYPOINT ["/bin/bash"]
