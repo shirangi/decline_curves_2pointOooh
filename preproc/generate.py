@@ -3,6 +3,8 @@ from luibeal import deck
 import torch
 import os
 
+DECK_PATH = os.path.join('.', 'data', 'rand_exp')
+
 
 def exponential(p0, exp, t):
     return p0 * np.exp(exp * t)
@@ -23,5 +25,4 @@ if __name__ == '__main__':
     training_deck = deck.Deck(nseq, lseq)
     for i in range(nseq):
         training_deck.set_sequence(i, random_exponential_decline(tlim, lseq, p0_mean))
-    deck_dir = os.path.join('.', 'data', 'rand_exp')
-    deck.save_as(training_deck, deck_dir)
+    deck.save_as(training_deck, DECK_PATH)
