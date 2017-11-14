@@ -24,6 +24,7 @@ def bug1_serialization():
         tmp.seek(0)
         j = pickle.load(tmp)
         b = torch.load(tmp)
+        assert torch.equal(a, b)
 
 if __name__ == '__main__':
     bug1_serialization()
