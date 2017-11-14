@@ -1,6 +1,6 @@
 # Decline Curves 2.Oooh
 
-A PyTorch application for next-generation decline curve modelling.
+A PyTorch application for next-generation decline curve modelling. The name of the package is `luibeal`, after the authors (Lewis and Beal) of the 1918 paper.
 
 - Conventional decline curve models cannot account for changing conditions
 - Recurrent neural networks (RNN) process temporal data
