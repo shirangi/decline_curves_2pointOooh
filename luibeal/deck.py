@@ -48,11 +48,11 @@ class Deck():
         j = self.meta_sequence_names.index(name)
         return self.idx_sequence(i) + 1 + j
 
-    def set_sequence(self, i, seq):
-        self.data[self.idx_sequence(i)] = seq
+    def sequence(self, i):
+        return self.data[self.idx_sequence(i)]
 
-    def set_meta_sequence(self, i, name, metaseq):
-        self.data[self.idx_meta_sequence(i, name)] = metaseq
+    def meta_sequence(self, i, name):
+        return self.data[self.idx_meta_sequence(i, name)]
 
 
 # TODO move to util module
