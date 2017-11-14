@@ -3,7 +3,10 @@
 import torch
 import pickle
 import fs
+from fs.osfs import OSFS
 import json
+import shutil
+import os
 
 DATA_FNAME = 'data.bin'
 META_FNAME = 'meta.json'
@@ -51,6 +54,8 @@ class Deck():
         self.data[self.idx_meta_sequence(i, j)] = metaseq
 
 
+# TODO move to util module
+
 
 def save(deck, fs_osfs):
     version = 0
@@ -74,3 +79,16 @@ def load(fs_osfs):
     with fs_osfs.open(DATA_FNAME, 'rb') as f:
         deck.data = torch.load(f)     
     return deck
+
+
+def save_as(deck, dir_path):
+    if os.path.isdir(dir_path):
+        shutil.rmtree(dir_path)
+    os.mkdir(dir_path)
+    save(deck, OSFS(dir_path))
+
+
+def load_from(dir_path):
+    if not os.path.isdir(dir_path):
+        raise IOError('Directory does not exist.')
+    return load(OSFS(dir_path))
