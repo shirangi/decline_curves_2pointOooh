@@ -1,13 +1,25 @@
 import numpy as np
 import torch
 
-np.random.seed(2)
 
-T = 20
-L = 1000
-N = 100
+def t0():
+    a = torch.Tensor(3, 3).uniform_(0, 1)
+    print(a)
+    b = torch.Tensor([[1, 2], [3, 4]])
+    print(b)
+    b.zero_()
+    print(b)
+    b[0] = 2
+    print(b)
+    b[1][1] = 1
+    print(b)
+    b.sin_() # inplace
+    print(b)
+    a = b.asin()
+    print(b)
+    print(a)
+    print(a.size())
 
-x = np.empty((N, L), 'int64')
-x[:] = np.array(range(L)) + np.random.randint(-4 * T, 4 * T, N).reshape(N, 1)
-data = np.sin(x / 1.0 / T).astype('float64')
-torch.save(data, open('traindata.pt', 'wb'))
+
+if __name__ == '__main__':
+    t0()
