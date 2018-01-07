@@ -22,7 +22,6 @@ conda create -n dcenv
 source activate dcenv
 conda env update -f environment.yml -n dcenv
 python setup.py
-source deactivate dcenv
 ```
 which creates an environment, activates it, installs dependecies and gets you out of the environment. Optionally you can specify `python setup.py develop` Alternatively, you can create the environment in one go and step into it later, all set up.
 ```

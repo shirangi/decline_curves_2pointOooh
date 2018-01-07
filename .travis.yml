@@ -14,9 +14,8 @@ install:
   - conda update -q conda
   # Useful for debugging any issues with conda
   - conda info -a
-
-  # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n $PYTHON_ENV python=$TRAVIS_PYTHON_VERSION -f environment.yml
+  - conda env update -f environment.yml -n $PYTHON_ENV
   - source activate $PYTHON_ENV
   - python setup.py develop
 
