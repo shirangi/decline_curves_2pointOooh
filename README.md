@@ -2,6 +2,12 @@
 
 :construction:
 
+
+Platform | CI Status 
+---------|-------------:
+Linux, Python 3.6 | [![Build Status](https://travis-ci.org/plang85/decline_curves_2pointOooh.svg?branch=master)](https://travis-ci.org/plang85/decline_curves_2pointOooh) 
+
+
 A PyTorch application for next-generation decline curve modelling. The package is named `luibeal`, after the authors (Lewis and Beal) of the 1918 paper.
 
 - Conventional decline curve models are not intended for changing conditions
