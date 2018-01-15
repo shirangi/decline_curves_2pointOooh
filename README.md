@@ -11,10 +11,10 @@ Linux, Python 3.6 | [![Build Status](https://travis-ci.org/plang85/decline_curve
 A PyTorch application for next-generation decline curve modelling. The package is named `luibeal` (Lewis and Beal, 1918).
 
 - Conventional decline curve models are not intended for changing conditions
-- Recurrent neural networks (RNN) process temporal data
-- Temporal data may be used to represent changes in conditions during a well’s lifetime
+- Recurrent neural networks (RNN) can process temporal data
+- These temporal data may be used to represent changes in conditions during a well’s lifetime
 - This provides means for a new decline curve modeling framework
-- This new framework is able to account for refracking, well interactins and more
+- The new framework is able to account for refracking, well interactions and more
 
 PyTorch has chosen a somewhat tight alignment with Anaconda, so this project falls in line given the strong dependency. So standard procedure using a virtual environment would then be
 ```
