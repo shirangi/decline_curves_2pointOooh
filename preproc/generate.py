@@ -1,5 +1,5 @@
 import numpy as np
-from luibeal import deck
+import luibeal as lb
 import torch
 import os
 
@@ -22,7 +22,8 @@ if __name__ == '__main__':
     nseq, lseq = 100, 50
     p0_mean = 50.0
     tlim = (0.0, 50.0)
-    training_deck = deck.Deck(nseq, lseq)
+    input = lb.input.Input(lseq)
+    training_deck = lb.deck.Deck(input, nseq)
     for i in range(nseq):
         training_deck.set_sequence(i, random_exponential_decline(tlim, lseq, p0_mean))
-    deck.save_as(training_deck, DECK_PATH)
+    lb.util.save_as(training_deck, DECK_PATH)
